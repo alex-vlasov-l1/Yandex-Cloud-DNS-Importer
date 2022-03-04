@@ -12,6 +12,13 @@ export YC_CLOUD_ID=$(yc config get cloud-id)
 export YC_FOLDER_ID=$(yc config get folder-id)
 ```
 
+## Схема решения
+
+Плейбук разворачивает следующую инфраструктуру:
+
+![](./pics/scheme.png)
+
+<br/>
 
 ## Описание компонентов
 - **dns.tf** - разворачивает нужную публичную зону и создает в ней требуемые записи
@@ -19,14 +26,16 @@ export YC_FOLDER_ID=$(yc config get folder-id)
 
 ## Развертывание плейбука
 Создайте файл terraform.tfvars и заполните переменную "namedzone"
-Например:
+##### Например:
 ```bash
 namedzone = " mydomain-example.com."
 ```
 
 Для каждой записи в исходном zonefile необходимо создать recordset объект и заполнить его поля
-Например в zonefile может быть запись: 
-```bash
+
+##### Например в zonefile может быть запись: 
+
+```
 555.storage.mydomain-example.com.		IN	A	5.5.5.5	
 ```
 
@@ -49,7 +58,7 @@ resource "yandex_dns_recordset" "rs1" {
 }
 ```
 
-Если нужно добавить еще одну запись, добавьте еще один блок типа recordset 
+##### Если нужно добавить еще одну запись, добавьте еще один блок типа recordset 
 
 ```HCL
 
